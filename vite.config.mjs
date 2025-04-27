@@ -3,10 +3,8 @@ import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 
-
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
-
 
 export default defineConfig({
   plugins: [
@@ -15,7 +13,11 @@ export default defineConfig({
     }),
     Vuetify(),
     Components({
-      dirs: ['src/assets/icons/toolbar','src/layouts'],
+      dirs: [
+        'src/assets/*',
+        'src/components/*',
+        'src/layouts'
+      ],
     }),
     ViteFonts({
       google: {

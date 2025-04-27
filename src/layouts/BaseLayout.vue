@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <Appbar />
-    <NavigationDrawer></NavigationDrawer>
+    <ExplorerDrawer></ExplorerDrawer>
+    <SettingsDrawer></SettingsDrawer>
     <v-main>
       <slot></slot>
     </v-main>
@@ -13,7 +14,10 @@
 export default {
   data() {
     return {
-      state: { drawer: false },
+      state: {
+        explorer_drawer: false,
+        settings_drawer: false,
+      },
     };
   },
   provide() {
