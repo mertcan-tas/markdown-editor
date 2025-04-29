@@ -1,15 +1,12 @@
 <template>
-  <v-navigation-drawer v-model="state.explorer_drawer" :temporary="isMobile">
-    
-    <template v-slot:prepend>
-          <v-list-item
-            lines="two"
-            prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-            subtitle="Logged in"
-            title="Jane Smith"
-          ></v-list-item>
-        </template>
-    
+  <v-navigation-drawer v-model="localExplorerOpen" temporary="true" >
+  
+    <v-list-item
+      lines="two"
+      prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
+      subtitle="Logged in"
+      title="Jane Smith"
+    ></v-list-item>
     
     <v-list density="compact" nav>
       
@@ -35,28 +32,39 @@
 </template>
 
 <script>
+import { useUIStore } from '@/plugins/stores/ui.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
-  inject: ['state'],
   data() {
     return {
-      mainMenu: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/dashboard' },
-      ],
-      isMobile: false, // Ekran boyutunu izlemek için değişken
+      isMobile: false,
     };
   },
   mounted() {
-    this.isMobile = window.innerWidth <= 600; // Başlangıçta ekran boyutunu kontrol et
-    window.addEventListener('resize', this.checkScreenSize); // Ekran boyutu değişimini izleyin
+    this.isMobile = window.innerWidth <= 600;
+    window.addEventListener('resize', this.checkScreenSize);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.checkScreenSize); // Component temizlenmeden önce event listener'ı kaldır
+    window.removeEventListener('resize', this.checkScreenSize); 
+  },
+  computed: {
+    ...mapState(useUIStore, ['isExplorerOpen']),
+    localExplorerOpen: {
+      get() {
+        return this.isExplorerOpen
+      },
+      set(val) {
+        this.setExplorer(val)
+      },
+    },
   },
   methods: {
+    ...mapActions(useUIStore, ['setExplorer', 'toggleExplorer']),
     checkScreenSize() {
       this.isMobile = window.innerWidth <= 600;
       if (!this.isMobile) {
-        this.state.explorer_drawer = false;
+        this.toggleExplorer();
       }
     },
   },

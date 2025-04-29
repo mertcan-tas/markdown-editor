@@ -1,0 +1,128 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+textarea {
+  background-color: #ffffff;
+  border: none;
+  border-right: 0px solid;
+  color: rgba(0, 0, 0, 0.8);
+  outline: none;
+  padding: 20px;
+  resize: none;
+  font-size: 16px; 
+  line-height: 1.5; 
+}
+
+.markdown-input {
+  resize: none;
+  padding: 20px;
+  border: none;
+  outline: none;
+  height: 100%;
+}
+
+.preview-container {
+  overflow-y: auto;
+  height: 100%;
+  background-color: #f2f2f2;
+}
+
+.markdown-output {
+  overflow-y: auto;
+  height: 100%;
+  background-color: #f2f2f2;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.markdown-output h1,
+.markdown-output h2,
+.markdown-output h3,
+.markdown-output h4,
+.markdown-output h5,
+.markdown-output h6 {
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+  color: #3D3D3D;
+}
+
+.markdown-output p {
+  margin-bottom: 1em;
+  line-height: 1.5;
+  color: #3D3D3D;
+}
+
+.markdown-output ul,
+.markdown-output ol {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+.markdown-output li {
+  margin-bottom: 0.5em;
+  color: #3D3D3D;
+}
+
+.markdown-output blockquote {
+  border-left: 4px solid #3D3D3D;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #3D3D3D;
+}
+
+.markdown-output code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #3D3D3D;
+  color: aliceblue;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 1em;
+}
+
+.markdown-output pre {
+  background-color: #3D3D3D;
+  padding: 16px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 1em;
+  font-size: 1em; 
+  line-height: 1.2;
+}
+
+.markdown-output img {
+  max-width: 100%;
+  margin: 1em 0;
+}
+
+.markdown-output hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid #3D3D3D;
+}
+
+.markdown-output table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 1em; 
+}
+
+.markdown-output th,
+.markdown-output td {
+  border: 1px solid #3D3D3D;
+  padding: 8px;
+  text-align: left;
+}
+
+.markdown-output th {
+  background-color: #3D3D3D;
+  color: white;
+}

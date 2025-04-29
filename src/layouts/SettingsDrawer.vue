@@ -1,16 +1,14 @@
 <template>
-  <v-navigation-drawer v-model="state.settings_drawer" :temporary="isMobile" location="right" permanent>
+  <v-navigation-drawer v-model="localSettingsOpen" :temporary="isMobile" location="right" >
   
-    <template v-slot:prepend>
           <v-list-item
             lines="two"
             prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
             subtitle="Logged in"
             title="Jane Smith"
           ></v-list-item>
-        </template>
-  
-        <v-divider></v-divider>
+ 
+   <v-divider/>
 
     <v-list density="compact" nav>
      
@@ -24,7 +22,7 @@
         </v-list-item-title>
       </v-list-item>
 
-      <v-list-item class="py-2 px-3" button link @click="showVersionDialog">
+      <v-list-item class="py-2 px-3" button link @click="toggleVersionDialog">
         <v-list-item-title class="d-flex align-center no-select">
           <v-icon class="mr-2" size="20">
             <IconAbout />
@@ -34,7 +32,10 @@
       </v-list-item>
 
 
-      <v-divider></v-divider>
+      <v-divider/>
+
+
+      <VersionNotification/>
 
       
       <v-list-item class="py-3 px-3 " button link>
@@ -46,41 +47,46 @@
         </v-list-item-title>
       </v-list-item>
 
-
-        
-      
-
-
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
+import { useUIStore } from '@/plugins/stores/ui.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
-  inject: ['state'],
   data() {
     return {
-      isMobile: false, // Ekran boyutunu izlemek için değişken
+      isMobile: false,
     };
   },
   mounted() {
-    this.isMobile = window.innerWidth <= 600; // Başlangıçta ekran boyutunu kontrol et
-    window.addEventListener('resize', this.checkScreenSize); // Ekran boyutu değişimini izleyin
+    this.isMobile = window.innerWidth <= 600; 
+    window.addEventListener('resize', this.checkScreenSize); 
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.checkScreenSize); // Component temizlenmeden önce event listener'ı kaldır
+    window.removeEventListener('resize', this.checkScreenSize); 
+  },
+  computed: {
+    ...mapState(useUIStore, ['isSettingsOpen']),
+    localSettingsOpen: {
+      get() {
+        return this.isSettingsOpen
+      },
+      set(val) {
+        this.setSettings(val)
+      },
+    },
   },
   methods: {
+    ...mapActions(useUIStore, ['setSettings', 'toggleSettings', 'toggleVersionDialog']),
     checkScreenSize() {
       this.isMobile = window.innerWidth <= 600;
-      // Eğer mobile'den desktop'a geçiş yaparsa, drawer'ı kapat
       if (!this.isMobile) {
-        this.state.settings_drawer = false;
+        this.toggleSettings()
       }
     },
-    showVersionDialog(){
-      this.state.version_dialog = true;
-    }
   },
 };
 </script>
