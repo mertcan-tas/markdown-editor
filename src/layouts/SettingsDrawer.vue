@@ -1,20 +1,12 @@
 <template>
-  <v-navigation-drawer v-model="localSettingsOpen" :temporary="isMobile" location="right" >
-  
-          <v-list-item
-            lines="two"
-            prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-            subtitle="Logged in"
-            title="Jane Smith"
-          ></v-list-item>
- 
-   <v-divider/>
-
+  <v-navigation-drawer
+    v-model="localExplorerOpen"
+    temporary="true"
+    location="right"
+  >
     <v-list density="compact" nav>
-     
-     
-      <v-list-item class="py-2 px-3" button link>
-        <v-list-item-title class="d-flex align-center no-select">
+      <v-list-item class="py-2 px-3 no-select" button link>
+        <v-list-item-title class="d-flex align-center">
           <v-icon class="mr-2" size="20">
             <IconBold />
           </v-icon>
@@ -22,38 +14,21 @@
         </v-list-item-title>
       </v-list-item>
 
-      <v-list-item class="py-2 px-3" button link @click="toggleVersionDialog">
-        <v-list-item-title class="d-flex align-center no-select">
+      <v-list-item class="py-2 px-3 no-select" button link>
+        <v-list-item-title class="d-flex align-center">
           <v-icon class="mr-2" size="20">
-            <IconAbout />
+            <IconBold />
           </v-icon>
-          About Markdown Editor
+          Dashboard Test 2
         </v-list-item-title>
       </v-list-item>
-
-
-      <v-divider/>
-
-
-      <VersionNotification/>
-
-      
-      <v-list-item class="py-3 px-3 " button link>
-        <v-list-item-title class="d-flex align-center no-select">
-          <v-icon class="mr-2" size="20">
-            <IconPrint />
-          </v-icon>
-          Print
-        </v-list-item-title>
-      </v-list-item>
-
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
-import { useUIStore } from '@/plugins/stores/ui.js'
-import { mapState, mapActions } from 'pinia'
+import { useUIStore } from "@/stores/ui.js";
+import { mapState, mapActions } from "pinia";
 
 export default {
   data() {
@@ -62,38 +37,38 @@ export default {
     };
   },
   mounted() {
-    this.isMobile = window.innerWidth <= 600; 
-    window.addEventListener('resize', this.checkScreenSize); 
+    this.isMobile = window.innerWidth <= 600;
+    window.addEventListener("resize", this.checkScreenSize);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.checkScreenSize); 
+    window.removeEventListener("resize", this.checkScreenSize);
   },
   computed: {
-    ...mapState(useUIStore, ['isSettingsOpen']),
-    localSettingsOpen: {
+    ...mapState(useUIStore, ["isExplorerOpen"]),
+    localExplorerOpen: {
       get() {
-        return this.isSettingsOpen
+        return this.isExplorerOpen;
       },
       set(val) {
-        this.setSettings(val)
+        this.setExplorer(val);
       },
     },
   },
   methods: {
-    ...mapActions(useUIStore, ['setSettings', 'toggleSettings', 'toggleVersionDialog']),
+    ...mapActions(useUIStore, [
+      "setExplorer",
+      "toggleExplorer",
+      "openExplorer",
+      "closeExplorer",
+    ]),
     checkScreenSize() {
+      const wasMobile = this.isMobile;
       this.isMobile = window.innerWidth <= 600;
-      if (!this.isMobile) {
-        this.toggleSettings()
+
+      if (wasMobile !== this.isMobile) {
+        this.closeExplorer();
       }
     },
   },
 };
 </script>
-
-<style scoped>
-.no-select {
-  user-select: none;
-  cursor: hand;
-}
-</style>
