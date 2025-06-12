@@ -1,5 +1,3 @@
-<p align="center"><img src="https://raw.githubusercontent.com/papyrusmark/papyrusmark.github.io/5fdcb72d9f325111e4db3265ba42d7f8345eb2cd/public/logo.svg" alt="Papyrusmark" width="300"></p>
-
 <h1 align="center">Papyrusmark Markdown Editor</h1>
 
 <p align="center">
