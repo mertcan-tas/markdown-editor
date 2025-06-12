@@ -22,7 +22,7 @@
 
 ## Preview
 
-![](https://raw.githubusercontent.com/papyrusmark/papyrusmark.github.io/refs/heads/main/public/preview.png)
+![](https://raw.githubusercontent.com/mertcan-tas/papyrusmark-editor/refs/heads/master/public/preview.png)
 
 
 
